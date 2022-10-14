@@ -1,0 +1,74 @@
+export type Reducer<S, A> = {
+  (state: S, action: A): S;
+};
+
+export type GetRenderingRef = () => any;
+export type GetElement = (comp: any) => any;
+export type ForceUpdate = (ref: any) => void;
+
+export type StashConfig = {
+  getRenderingRef: GetRenderingRef;
+  getElement: GetElement;
+  forceUpdate: ForceUpdate;
+};
+
+export type ActionEvent<A> = CustomEvent<A>;
+
+export type Listener2<S, Vars, Return> = (stash: S, vars?: Vars) => Return;
+
+export type StashField<V, R> = (vars?: V) => R;
+
+export type SEV<S, Vars, Return> = {
+  sel2: Listener2<S, Vars, Return>;
+  caller2: any | null;
+  vars2: Vars | null;
+};
+
+export interface HTMLStencilElement extends HTMLElement {
+  componentOnReady(): Promise<this>;
+}
+
+export type BaseAction<Payload> = { type: string; payload?: Payload };
+
+// export type _DispatchType<Payload> = (args: BaseAction<Payload>) => CustomEvent<BaseAction<Payload>>;
+
+export type StashAction<P = undefined> = (args?: {
+  payload: P;
+}) => CustomEvent<{ type: string; payload?: P }>;
+
+export type OnCleanup = {
+  (): void;
+};
+
+export type ThunkContext = {
+  setOnCleanup: (onCleanup: OnCleanup) => void;
+};
+
+export type Thunk<S, A extends { type: string }, R = any | undefined> = {
+  (dispatch: Dispatch<A>, getAction: () => S, context: ThunkContext):
+    | Promise<R>
+    | R;
+};
+
+export type Dispatch<Action extends { type: string }> = (args: Action) => void;
+// export type MD<Action extends { type: string }, S> =
+export type ThunkDispatch<Action extends { type: string }, S> = (
+  args:
+    | Action
+    | ((...args: any) => Thunk<S, Action, any> | Promise<Thunk<S, Action, any>>)
+) => any | void | Promise<any | void>;
+// | Dispatch<Action>
+// | ((dispatch: ThunkDispatch<Action, S>, getState: () => S) => Promise<any>);
+// | ((...args: any[]) => any)
+
+export type StashElementCore<S, A, Vars, Return> = {
+  stash: S;
+  subs: SEV<S, Vars, Return>[];
+  reducer: Reducer<S, A>;
+};
+
+export type StashElement<S, A, Vars, Return> = Pick<
+  HTMLElement,
+  'addEventListener' | 'removeEventListener' | 'closest' | 'setAttribute'
+> &
+  StashElementCore<S, A, Vars, Return>;
