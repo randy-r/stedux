@@ -30,8 +30,6 @@ export interface HTMLStencilElement extends HTMLElement {
 
 export type BaseAction<Payload> = { type: string; payload?: Payload };
 
-// export type _DispatchType<Payload> = (args: BaseAction<Payload>) => CustomEvent<BaseAction<Payload>>;
-
 export type StashAction<P = undefined> = (args?: {
   payload: P;
 }) => CustomEvent<{ type: string; payload?: P }>;
@@ -51,15 +49,11 @@ export type Thunk<S, A extends { type: string }, R = any | undefined> = {
 };
 
 export type Dispatch<Action extends { type: string }> = (args: Action) => void;
-// export type MD<Action extends { type: string }, S> =
 export type ThunkDispatch<Action extends { type: string }, S> = (
   args:
     | Action
     | ((...args: any) => Thunk<S, Action, any> | Promise<Thunk<S, Action, any>>)
 ) => any | void | Promise<any | void>;
-// | Dispatch<Action>
-// | ((dispatch: ThunkDispatch<Action, S>, getState: () => S) => Promise<any>);
-// | ((...args: any[]) => any)
 
 export type StashElementCore<S, A, Vars, Return> = {
   stash: S;

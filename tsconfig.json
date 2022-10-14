@@ -1,15 +1,33 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "lib": ["es2017", "es7", "es6", "dom"],
-    "declaration": true,
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
     "noImplicitAny": false,
-    "useUnknownInCatchVariables": false,
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "declaration": true,
+    // "experimentalDecorators": true,
+    "lib": [
+      "dom",
+      "es2017"
+    ],
+    "declarationDir": "dist",
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "es2017",
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    // "jsx": "react",
+    // "jsxFactory": "h",
+    "useUnknownInCatchVariables": false
   },
+  "files": [
+    "src/index.ts"
+  ],
   "exclude": [
     "node_modules",
     "dist"
