@@ -1,0 +1,46 @@
+{
+  "name": "stedux",
+  "version": "0.0.1",
+  "description": "Redux for Stencil.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/randy-r/stedux.git"
+  },
+  "keywords": [
+    "stencil",
+    "stenciljs",
+    "redux",
+    "reduxjs",
+    "stedux",
+    "store",
+    "global",
+    "globalstore",
+    "stecilstore",
+    "stencilredux",
+    "reduxstencil",
+    "stencilstedux",
+    "steduxstencil",
+    "state",
+    "stencilstate",
+    "globalstate",
+    "provider",
+    "selector",
+    "despatch",
+    "reducers",
+    "reducer",
+    "action",
+    "actions",
+    "fetch",
+    "stencilfetch"
+  ],
+  "author": "randy-r",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/randy-r/stedux/issues"
+  },
+  "homepage": "https://github.com/randy-r/stedux#readme"
+}
