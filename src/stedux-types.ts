@@ -12,8 +12,6 @@ export type StashConfig = {
   forceUpdate: ForceUpdate;
 };
 
-export type ActionEvent<A> = CustomEvent<A>;
-
 export type Listener2<S, Vars, Return> = (stash: S, vars?: Vars) => Return;
 
 export type StashField<V, R> = (vars?: V) => R;
@@ -54,15 +52,3 @@ export type ThunkDispatch<Action extends { type: string }, S> = (
     | Action
     | ((...args: any) => Thunk<S, Action, any> | Promise<Thunk<S, Action, any>>)
 ) => any | void | Promise<any | void>;
-
-export type StashElementCore<S, A, Vars, Return> = {
-  stash: S;
-  subs: SEV<S, Vars, Return>[];
-  reducer: Reducer<S, A>;
-};
-
-export type StashElement<S, A, Vars, Return> = Pick<
-  HTMLElement,
-  'addEventListener' | 'removeEventListener' | 'closest' | 'setAttribute'
-> &
-  StashElementCore<S, A, Vars, Return>;

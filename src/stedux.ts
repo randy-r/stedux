@@ -1,5 +1,4 @@
 import {
-  ActionEvent,
   BaseAction,
   Dispatch,
   Listener2,
@@ -7,7 +6,6 @@ import {
   Reducer,
   SEV,
   StashConfig,
-  StashElement,
   StashField,
   Thunk,
   ThunkContext,
@@ -114,17 +112,12 @@ class RenderQ {
   }
 }
 
-const wholestashidGenerator = generateId();
-
 function createStore<S, A extends BaseAction<any>>(
   initialState: S,
   rootReducer: Reducer<S, A>,
   config: StashConfig
 ) {
   const { forceUpdate, getElement, getRenderingRef } = config;
-
-  const wholestashid = wholestashidGenerator.next().value;
-  const actionEventType = `stash-action-${wholestashid}`;
 
   let subs: SEV<S, any, any>[] = [];
   let stash = { ...initialState };
@@ -133,23 +126,6 @@ function createStore<S, A extends BaseAction<any>>(
   const getState = () => stash;
 
   const renderQ = new RenderQ('set', 'async', forceUpdate);
-
-  const handleActionEvent = (evt: ActionEvent<A>) => {
-    const crtStash = stash;
-    const newStash = reducer(crtStash, evt.detail);
-    subs = subs.filter((sub) => sub.caller2.isConnected);
-    for (const sc of subs) {
-      const newSelection = sc.sel2(newStash, sc.vars2);
-      const oldSelection = sc.sel2(crtStash, sc.vars2);
-      if (newSelection !== oldSelection) {
-        renderQ.add(sc.caller2);
-      }
-    }
-    stash = newStash;
-    // @ts-ignore
-    window.stash = stash;
-    renderQ.signalToRender();
-  };
 
   const handleAction = (action: A) => {
     const crtStash = stash;
@@ -168,60 +144,9 @@ function createStore<S, A extends BaseAction<any>>(
     renderQ.signalToRender();
   };
 
-  const eventListener = (evt: ActionEvent<A>) => {
-    try {
-      evt.stopPropagation();
-      evt.preventDefault();
-      handleActionEvent(evt);
-    } catch (err) {
-      const newErr = new Error('Stash event listener: ' + err?.message);
-      if (err.stack) {
-        newErr.stack = err.stack;
-      }
-      throw newErr;
-    }
-  };
-
-  function atachStashActionEvent<S, A, Vars, Return>(
-    _onEvent: (evt: ActionEvent<A>) => void,
-    el: StashElement<S, A, Vars, Return>
-  ) {
-    const options: AddEventListenerOptions = {
-      capture: true,
-    };
-
-    // This will be added any time the this file is modified during development in watch files mode
-    // @ts-ignore
-    el.addEventListener(actionEventType, eventListener, options);
-
-    return () => {
-      // @ts-ignore
-      el.removeEventListener(actionEventType, eventListener, options);
-    };
-  }
-
-  function createProvider(component: any) {
+  function createProvider(_component: any) {
     // @ts-ignore
     const stash = rootReducer(initialState, { type: '__STASH_INIT__' });
-    const element = getElement(component) as unknown as StashElement<
-      S,
-      A,
-      any,
-      any
-    >;
-
-    const detach = atachStashActionEvent(() => {}, element);
-    overrideMethod(
-      component,
-      'disconnectedCallback',
-      'createProvider',
-      (original) => {
-        return function (...args) {
-          detach();
-          original?.(...args);
-        };
-      }
-    );
   }
 
   function createDispatch(component: any): ThunkDispatch<A, S> {
@@ -232,17 +157,7 @@ function createStore<S, A extends BaseAction<any>>(
     }
 
     const dispatch: Dispatch<A> = function dispatch(action: A) {
-      const detail = { type: action.type, payload: action.payload };
-      const ce = new CustomEvent(actionEventType, {
-        detail,
-        bubbles: true,
-        cancelable: true,
-        composed: true,
-      });
-
-      // el.dispatchEvent(ce);
       handleAction(action);
-      return ce;
     };
 
     const thunkDispatch: ThunkDispatch<A, S> = function thunkDispatch(
