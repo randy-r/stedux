@@ -9,7 +9,18 @@
 */
 
 body {
+  background-color: #03060b;
+  background-color: beige;
   margin: 0px;
   padding: 0px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
 }

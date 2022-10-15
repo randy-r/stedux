@@ -139,8 +139,6 @@ function createStore<S, A extends BaseAction<any>>(
       }
     }
     stash = newStash;
-    // @ts-ignore
-    window.stash = stash;
     renderQ.signalToRender();
   };
 

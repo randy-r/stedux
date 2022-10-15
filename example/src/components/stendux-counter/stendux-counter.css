@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+button {
+  color: blue;
+  font-size: 1.1em;
+  border: 3px dashed lime;
+
+}

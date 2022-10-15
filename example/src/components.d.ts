@@ -14,6 +14,10 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface StenduxCounter {
+    }
+    interface UiBtn {
+    }
 }
 declare global {
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
@@ -34,10 +38,24 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLStenduxCounterElement extends Components.StenduxCounter, HTMLStencilElement {
+    }
+    var HTMLStenduxCounterElement: {
+        prototype: HTMLStenduxCounterElement;
+        new (): HTMLStenduxCounterElement;
+    };
+    interface HTMLUiBtnElement extends Components.UiBtn, HTMLStencilElement {
+    }
+    var HTMLUiBtnElement: {
+        prototype: HTMLUiBtnElement;
+        new (): HTMLUiBtnElement;
+    };
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
+        "stendux-counter": HTMLStenduxCounterElement;
+        "ui-btn": HTMLUiBtnElement;
     }
 }
 declare namespace LocalJSX {
@@ -48,10 +66,17 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface StenduxCounter {
+    }
+    interface UiBtn {
+        "onClick"?: (event: CustomEvent<any>) => void;
+    }
     interface IntrinsicElements {
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
+        "stendux-counter": StenduxCounter;
+        "ui-btn": UiBtn;
     }
 }
 export { LocalJSX as JSX };
@@ -61,6 +86,8 @@ declare module "@stencil/core" {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "stendux-counter": LocalJSX.StenduxCounter & JSXBase.HTMLAttributes<HTMLStenduxCounterElement>;
+            "ui-btn": LocalJSX.UiBtn & JSXBase.HTMLAttributes<HTMLUiBtnElement>;
         }
     }
 }
