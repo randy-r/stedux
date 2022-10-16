@@ -18,6 +18,7 @@ export class AppRoot {
             <stencil-route-switch class="flex" scrollTopOffset={0}>
               <stencil-route class="flex" url="/" component="stedux-counter" exact={true} />
               <stencil-route class="flex" url="/counter" component="stedux-counter" exact={true} />
+              <stencil-route class="flex" url="/async" component="stedux-async" exact={true} />
             </stencil-route-switch>
           </stencil-router>
         </main>

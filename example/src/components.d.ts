@@ -14,6 +14,8 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface SteduxAsync {
+    }
     interface SteduxCounter {
     }
     interface UiBtn {
@@ -40,6 +42,12 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLSteduxAsyncElement extends Components.SteduxAsync, HTMLStencilElement {
+    }
+    var HTMLSteduxAsyncElement: {
+        prototype: HTMLSteduxAsyncElement;
+        new (): HTMLSteduxAsyncElement;
+    };
     interface HTMLSteduxCounterElement extends Components.SteduxCounter, HTMLStencilElement {
     }
     var HTMLSteduxCounterElement: {
@@ -62,6 +70,7 @@ declare global {
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
+        "stedux-async": HTMLSteduxAsyncElement;
         "stedux-counter": HTMLSteduxCounterElement;
         "ui-btn": HTMLUiBtnElement;
         "ui-jumbo": HTMLUiJumboElement;
@@ -75,6 +84,8 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface SteduxAsync {
+    }
     interface SteduxCounter {
     }
     interface UiBtn {
@@ -85,6 +96,7 @@ declare namespace LocalJSX {
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
+        "stedux-async": SteduxAsync;
         "stedux-counter": SteduxCounter;
         "ui-btn": UiBtn;
         "ui-jumbo": UiJumbo;
@@ -97,6 +109,7 @@ declare module "@stencil/core" {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "stedux-async": LocalJSX.SteduxAsync & JSXBase.HTMLAttributes<HTMLSteduxAsyncElement>;
             "stedux-counter": LocalJSX.SteduxCounter & JSXBase.HTMLAttributes<HTMLSteduxCounterElement>;
             "ui-btn": LocalJSX.UiBtn & JSXBase.HTMLAttributes<HTMLUiBtnElement>;
             "ui-jumbo": LocalJSX.UiJumbo & JSXBase.HTMLAttributes<HTMLUiJumboElement>;

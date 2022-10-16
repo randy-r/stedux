@@ -27,7 +27,7 @@ import {
   styleUrl: 'stedux-counter.css',
   shadow: true,
 })
-export class StenduxCounter {
+export class SteduxCounter {
   dispatch: Dispatch<MyAction>;
   counter: () => number;
 
@@ -65,7 +65,7 @@ import { createDispatch, createSelector, MyAction } from '../../store/counter-st
   styleUrl: 'stedux-counter.css',
   shadow: true,
 })
-export class StenduxCounter {
+export class SteduxCounter {
   dispatch: Dispatch<MyAction>;
   counter: () => number;
 
