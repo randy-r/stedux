@@ -47,7 +47,7 @@ export type Thunk<S, A extends { type: string }, R = any | undefined> = {
 };
 
 export type Dispatch<Action extends { type: string }> = (args: Action) => void;
-export type ThunkDispatch<Action extends { type: string }, S> = (
+export type ThunkDispatch<Action extends { type: string }, S = any> = (
   args:
     | Action
     | ((...args: any) => Thunk<S, Action, any> | Promise<Thunk<S, Action, any>>)

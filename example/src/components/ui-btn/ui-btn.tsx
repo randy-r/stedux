@@ -6,9 +6,6 @@ import { Component, Fragment, h } from '@stencil/core';
   shadow: true,
 })
 export class UiBtn {
-  // onClick: (event: MouseEvent) => void;
-  // @Event() click?: (event: MouseEvent) => void;
-
   render() {
     return (
       <Fragment>

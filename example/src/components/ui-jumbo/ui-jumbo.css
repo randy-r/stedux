@@ -3,13 +3,15 @@ span {
   font-size: 20rem;
   line-height: 19rem;
   /* height: 14.5rem; */
-  /* margin-bottom: 1.5rem; */
+  /* margin-bottom: -0.5rem; */
+  min-width: 3ch;
+  text-align: center;
   color: rgba(var(--color_red), var(--color_green), var(--color_blue), 1);
   text-shadow: 0 0 30px rgba(var(--color_red), var(--color_green), var(--color_blue), 0.45), 0 0 60px rgba(var(--color_red), var(--color_green), var(--color_blue), 0.25);
   /* animation: floating 3s ease-in-out infinite; */
 }
 
-@keyframes floating {
+/* @keyframes floating {
   0% {
     transform: translate(0, 0px);
   }
@@ -19,4 +21,4 @@ span {
   100% {
     transform: translate(0, -0px);
   }
-}
+} */

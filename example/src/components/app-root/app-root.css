@@ -4,8 +4,8 @@
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  --root-pad: 1rem;
-  padding: var(--root-pad);
+  --root-pad: 1;
+  padding: calc(var(--root-pad) * 1rem);
 
   --bg-clr: #03060b;
   background-color: var(--bg-clr);
@@ -20,7 +20,7 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 2 * var(--root-pad));
+  min-height: calc(100vh - 2 * var(--root-pad) * 1rem);
 }
 
 header {
