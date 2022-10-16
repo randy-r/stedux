@@ -1,4 +1,4 @@
-import { Component, Event, h } from '@stencil/core';
+import { Component, Fragment, h } from '@stencil/core';
 
 @Component({
   tag: 'ui-btn',
@@ -6,13 +6,17 @@ import { Component, Event, h } from '@stencil/core';
   shadow: true,
 })
 export class UiBtn {
-  @Event() click?: (event: MouseEvent) => void;
+  // onClick: (event: MouseEvent) => void;
+  // @Event() click?: (event: MouseEvent) => void;
 
   render() {
     return (
-      <button onClick={this.click}>
-        <slot />
-      </button>
+      <Fragment>
+        {/* @ts-ignore */}
+        <button onClick={this.onClick}>
+            <slot />
+        </button>
+      </Fragment>
     );
   }
 }

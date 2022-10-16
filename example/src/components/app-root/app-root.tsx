@@ -8,16 +8,16 @@ import { Component, h } from '@stencil/core';
 export class AppRoot {
   render() {
     return (
-      <div>
+      <div class="root">
         <header>
           <h1>Stedux</h1>
-      </header>
+        </header>
 
         <main>
-          <stencil-router>
-            <stencil-route-switch scrollTopOffset={0}>
-              <stencil-route url="/" component="stendux-counter" exact={true} />
-              <stencil-route url="/counter" component="stendux-counter" exact={true} />
+          <stencil-router class="flex">
+            <stencil-route-switch class="flex" scrollTopOffset={0}>
+              <stencil-route class="flex" url="/" component="stedux-counter" exact={true} />
+              <stencil-route class="flex" url="/counter" component="stedux-counter" exact={true} />
             </stencil-route-switch>
           </stencil-router>
         </main>

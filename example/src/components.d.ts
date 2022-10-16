@@ -14,9 +14,11 @@ export namespace Components {
     }
     interface AppRoot {
     }
-    interface StenduxCounter {
+    interface SteduxCounter {
     }
     interface UiBtn {
+    }
+    interface UiJumbo {
     }
 }
 declare global {
@@ -38,11 +40,11 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
-    interface HTMLStenduxCounterElement extends Components.StenduxCounter, HTMLStencilElement {
+    interface HTMLSteduxCounterElement extends Components.SteduxCounter, HTMLStencilElement {
     }
-    var HTMLStenduxCounterElement: {
-        prototype: HTMLStenduxCounterElement;
-        new (): HTMLStenduxCounterElement;
+    var HTMLSteduxCounterElement: {
+        prototype: HTMLSteduxCounterElement;
+        new (): HTMLSteduxCounterElement;
     };
     interface HTMLUiBtnElement extends Components.UiBtn, HTMLStencilElement {
     }
@@ -50,12 +52,19 @@ declare global {
         prototype: HTMLUiBtnElement;
         new (): HTMLUiBtnElement;
     };
+    interface HTMLUiJumboElement extends Components.UiJumbo, HTMLStencilElement {
+    }
+    var HTMLUiJumboElement: {
+        prototype: HTMLUiJumboElement;
+        new (): HTMLUiJumboElement;
+    };
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
-        "stendux-counter": HTMLStenduxCounterElement;
+        "stedux-counter": HTMLSteduxCounterElement;
         "ui-btn": HTMLUiBtnElement;
+        "ui-jumbo": HTMLUiJumboElement;
     }
 }
 declare namespace LocalJSX {
@@ -66,17 +75,19 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
-    interface StenduxCounter {
+    interface SteduxCounter {
     }
     interface UiBtn {
-        "onClick"?: (event: CustomEvent<any>) => void;
+    }
+    interface UiJumbo {
     }
     interface IntrinsicElements {
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
-        "stendux-counter": StenduxCounter;
+        "stedux-counter": SteduxCounter;
         "ui-btn": UiBtn;
+        "ui-jumbo": UiJumbo;
     }
 }
 export { LocalJSX as JSX };
@@ -86,8 +97,9 @@ declare module "@stencil/core" {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
-            "stendux-counter": LocalJSX.StenduxCounter & JSXBase.HTMLAttributes<HTMLStenduxCounterElement>;
+            "stedux-counter": LocalJSX.SteduxCounter & JSXBase.HTMLAttributes<HTMLSteduxCounterElement>;
             "ui-btn": LocalJSX.UiBtn & JSXBase.HTMLAttributes<HTMLUiBtnElement>;
+            "ui-jumbo": LocalJSX.UiJumbo & JSXBase.HTMLAttributes<HTMLUiJumboElement>;
         }
     }
 }

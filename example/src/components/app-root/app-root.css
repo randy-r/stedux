@@ -1,14 +1,46 @@
 :host {
-  border: 3px solid red;
   box-sizing: border-box;
-  color: brown;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
+  display: block;
   min-height: 100%;
   height: auto !important;
   height: 100%;
+  --root-pad: 1rem;
+  padding: var(--root-pad);
+
+  --bg-clr: #03060b;
+  background-color: var(--bg-clr);
+  --color_red: 255;
+  --color_green: 255;
+  --color_blue: 255;
+  color: rgba(var(--color_red), var(--color_green), var(--color_blue), 1);
 }
 
+.root {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 2 * var(--root-pad));
+}
+
+header {
+  padding: 2px;
+}
+header h1 {
+  margin: 0;
+  text-shadow: 0 0 30px rgba(var(--color_red), var(--color_green), var(--color_blue), 0.45), 0 0 60px rgba(var(--color_red), var(--color_green), var(--color_blue), 0.25);
+}
+
+main {
+  flex: 1;
+  display: flex;
+  margin: 30px;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex {
+  display: flex;
+  flex: 1;
+}

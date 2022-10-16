@@ -1,0 +1,19 @@
+:host {
+  padding: 5px;
+  flex: 1;
+}
+
+div {
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+ui-btn:first-child {
+  margin-right: 2rem;
+}
+
+ui-btn:last-child {
+  margin-left: 2rem;
+}
