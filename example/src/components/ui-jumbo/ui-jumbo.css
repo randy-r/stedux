@@ -7,7 +7,7 @@ span {
   min-width: 3ch;
   text-align: center;
   color: rgba(var(--color_red), var(--color_green), var(--color_blue), 1);
-  text-shadow: 0 0 30px rgba(var(--color_red), var(--color_green), var(--color_blue), 0.45), 0 0 60px rgba(var(--color_red), var(--color_green), var(--color_blue), 0.25);
+  text-shadow: var(--glow-text-shadow);
   /* animation: floating 3s ease-in-out infinite; */
 }
 

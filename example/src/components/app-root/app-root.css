@@ -7,12 +7,20 @@
   --root-pad: 1;
   padding: calc(var(--root-pad) * 1rem);
 
+  
   --bg-clr: #03060b;
-  background-color: var(--bg-clr);
+  --p1-clr: magenta;
+  --p1-clr: #764abc;
+  --p1-clr: hsl(263, 46%, 51%);
+  --p1-clr: hsl(278, 100%, 66%);
   --color_red: 255;
   --color_green: 255;
   --color_blue: 255;
-  color: rgba(var(--color_red), var(--color_green), var(--color_blue), 1);
+  --p2-clr:rgba(var(--color_red), var(--color_green), var(--color_blue), 1);
+  color: var(--p2-clr);
+  
+  --glow-text-shadow: 0 0 30px rgba(var(--color_red), var(--color_green), var(--color_blue), 0.45), 0 0 60px rgba(var(--color_red), var(--color_green), var(--color_blue), 0.25);
+  background-color: var(--bg-clr);
 }
 
 .root {
@@ -28,8 +36,12 @@ header {
 }
 header h1 {
   margin: 0;
-  text-shadow: 0 0 30px rgba(var(--color_red), var(--color_green), var(--color_blue), 0.45), 0 0 60px rgba(var(--color_red), var(--color_green), var(--color_blue), 0.25);
+  text-shadow: var(--glow-text-shadow);
 }
+header h1 .highlight {
+  color: var(--p1-clr)
+}
+
 
 main {
   flex: 1;

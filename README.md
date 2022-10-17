@@ -1,6 +1,6 @@
 # Stedux
 
-Stedux is a state management library for [Stencil](https://stenciljs.com/) components, inspired by [React Redux](https://react-redux.js.org/). Components can listen to state, dispatch action or async actions easily.
+Stedux is a state management library for [Stencil](https://stenciljs.com/) components, inspired by [React Redux](https://react-redux.js.org/). Components can listen to state, dispatch actions or async actions easily.
 
 ## Instalation
 
@@ -12,10 +12,8 @@ Stedux is a state management library for [Stencil](https://stenciljs.com/) compo
 
 ```tsx
 // File: example/src/components/stedux-couter/stedux-counter.tsx
-
 import { Component, h } from '@stencil/core';
 import { Dispatch } from 'stedux';
-// 1. Import functions from the path where you built the store.
 import {
   createDispatch,
   createSelector,
@@ -24,7 +22,6 @@ import {
 
 @Component({
   tag: 'stedux-counter',
-  styleUrl: 'stedux-counter.css',
   shadow: true,
 })
 export class SteduxCounter {
@@ -32,14 +29,10 @@ export class SteduxCounter {
   counter: () => number;
 
   constructor() {
-    // 2. Create a dispatch for your actions and a selector for your state.
-    //    Note: The value returned by `createDispatch` is function to be called
-    //          for obtaining the current state value;
     this.dispatch = createDispatch(this);
     this.counter = createSelector((s) => s.counter, this);
   }
 
-  // 3. Use `dispatch` on handlers and selector values for rendering.
   render() {
     return (
       <div>
@@ -54,11 +47,8 @@ export class SteduxCounter {
 
 ```tsx
 // File: /src/store/counter-store.ts
-
 import { forceUpdate, getElement, getRenderingRef } from '@stencil/core';
 import { createStore } from 'stedux';
-
-/** 1. Declare your state and action types. */
 
 export type MyState = {
   counter: number;
@@ -72,8 +62,6 @@ export type Decrement = {
 };
 
 export type MyAction = Increment | Decrement;
-
-/** 3. Write reducer function(s) for each slice of your state and use them in a root reducer. */
 
 const counterReducer = (slice: MyState['counter'], action: MyAction) => {
   switch (action.type) {
@@ -94,22 +82,161 @@ export const myRootReducer = (state: MyState, action: MyAction): MyState => {
   };
 };
 
-/** 4. Set initial values for your state. */
-
 export const myInitialState: MyState = {
   counter: 0,
 };
 
-/** 5. Call `createStore` with the above and export the returned functions. */
+const { createDispatch, createSelector } = createStore<MyState, MyAction>(
+  myInitialState,
+  myRootReducer,
+  {
+    forceUpdate,
+    getElement,
+    getRenderingRef,
+  }
+);
 
-const { createDispatch, createSelector } = createStore<MyState, MyAction>(myInitialState, myRootReducer, {
+export { createDispatch, createSelector };
+```
+
+### Data fetching / async thunks
+
+```tsx
+// File: example/src/components/stedux-async/stedux-async.tsx
+import { Component, Host, h } from '@stencil/core';
+import { Thunk, ThunkDispatch } from 'stedux';
+import {
+  createDispatch,
+  createSelector,
+  MyAction,
+  MyState,
+} from '../../store/person-store';
+
+const fetchPerson =
+  (id: number): Thunk<MyState, MyAction> =>
+  async (dispatch, _getState) => {
+    dispatch({ type: 'person-loading' });
+    const response = await fetch(`https://swapi.dev/api/people/${id}`);
+    if (!response.ok) {
+      dispatch({
+        type: 'person-error',
+        payload: { error: { message: `Failed to fetch: ${response.status}.` } },
+      });
+      return;
+    }
+    const person = await response.json();
+    dispatch({ type: 'person-done', payload: person });
+  };
+
+@Component({
+  tag: 'stedux-async',
+  shadow: true,
+})
+export class SteduxAsync {
+  dispatch: ThunkDispatch<MyAction, MyState>;
+  personData: () => MyState['person'];
+
+  constructor() {
+    this.personData = createSelector((s) => s.person, this);
+    this.dispatch = createDispatch(this);
+  }
+
+  render() {
+    const { data, loading, error } = this.personData();
+
+    return (
+      <Host>
+        {loading && <div>Loading...</div>}
+        {data && (
+          <Fragment>
+            <div>name: {data.name}</div>
+            <div>height: {data.height}</div>
+          </Fragment>
+        )}
+        {error && <div>Oops: {error.message}</div>}
+        <button onClick={() => this.dispatch(fetchPerson(id))}>
+          Fetch data
+        </button>
+      </Host>
+    );
+  }
+}
+```
+
+```ts
+// File: /src/store/async-store.ts
+import { forceUpdate, getElement, getRenderingRef } from '@stencil/core';
+import { createStore } from 'stedux';
+
+export type MyState = {
+  person: {
+    loading: boolean | null;
+    data: { name: string; height: string } | null;
+    error: { message?: string; name?: string } | null;
+  };
+};
+
+export type PersonFetchLoading = {
+  type: 'person-loading';
+};
+export type PersonFetchDone = {
+  type: 'person-done';
+  payload: { name: string; height: string };
+};
+export type PersonFetchError = {
+  type: 'person-error';
+  payload: { error: { message?: string; name?: string } };
+};
+
+export type PersonAction =
+  | PersonFetchLoading
+  | PersonFetchDone
+  | PersonFetchError;
+
+export type MyAction = PersonAction;
+
+export const myInitialState: MyState = {
+  person: {
+    loading: null,
+    data: null,
+    error: null,
+  },
+};
+
+const personReducer = (
+  slice: MyState['person'],
+  action: MyAction
+): MyState['person'] => {
+  switch (action.type) {
+    case 'person-loading':
+      return { data: null, error: null, loading: true };
+    case 'person-error': {
+      return { data: null, error: action.payload.error, loading: false };
+    }
+    case 'person-done':
+      return { data: action.payload, error: null, loading: false };
+    default:
+      return slice;
+  }
+};
+
+export const myRootReducer = (state: MyState, action: MyAction): MyState => {
+  return {
+    ...state,
+    person: personReducer(state.person, action),
+  };
+};
+
+const { createDispatch, createSelector, createProvider } = createStore<
+  MyState,
+  MyAction
+>(myInitialState, myRootReducer, {
   forceUpdate,
   getElement,
   getRenderingRef,
 });
 
-export { createDispatch, createSelector };
-
+export { createDispatch, createSelector, createProvider };
 ```
 
 See the full source code for the Stencil app with examples [here](./example/).

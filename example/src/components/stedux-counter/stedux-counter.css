@@ -17,3 +17,7 @@ ui-btn:first-child {
 ui-btn:last-child {
   margin-left: 2rem;
 }
+
+ui-btn {
+  font-size: 6rem;
+}

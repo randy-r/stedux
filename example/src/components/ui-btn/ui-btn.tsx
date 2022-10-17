@@ -1,19 +1,19 @@
-import { Component, Fragment, h } from '@stencil/core';
+import { Component, h } from '@stencil/core';
+import { JSXBase } from '@stencil/core/internal/stencil-public-runtime';
+
+type Button = JSXBase.IntrinsicElements['button'];
 
 @Component({
   tag: 'ui-btn',
   styleUrl: 'ui-btn.css',
-  shadow: true,
 })
 export class UiBtn {
   render() {
+    const self = this as Button;
     return (
-      <Fragment>
-        {/* @ts-ignore */}
-        <button onClick={this.onClick}>
-            <slot />
-        </button>
-      </Fragment>
+      <button onClick={self.onClick}>
+        <slot />
+      </button>
     );
   }
 }

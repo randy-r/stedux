@@ -34,22 +34,17 @@ button::-moz-focus-inner {
 /* ==CSS for App== */
 
 button {
+  padding: 0.25em 0.5em;
   text-align: center;
   position: relative;
   border: 3px solid;
   box-sizing: border-box;
   border-block-start: 3px solid;
-  border-image-source: radial-gradient(circle at top left, magenta, transparent calc(max(40%, 6rem)));
-  padding: 1.5rem 3rem;
-  font-size: 6rem;
+  border-image-source: radial-gradient(circle at top left, var(--p1-clr), transparent calc(max(40%, 6rem)));
   border-image-slice: 1;
   min-width: 10.5rem;
   transition: background-color 100ms ease-in-out, color 300ms ease-in-out, border-image-source 600ms ease-in-out;
-  
-  text-shadow: 0 0 30px rgba(var(--color_red), var(--color_green), var(--color_blue), 0.45), 0 0 60px rgba(var(--color_red), var(--color_green), var(--color_blue), 0.25);
-
 }
-
 button::before {
   box-sizing: border-box;
   content: '';
@@ -63,27 +58,25 @@ button::before {
   bottom: -3px;
   border: 3px solid;
   border-block-start: 3px solid;
-  border-image-source: radial-gradient(circle at bottom right, white, transparent calc(max(40%, 6rem)));
+  border-image-source: radial-gradient(circle at bottom right, var(--p2-clr), transparent calc(max(40%, 6rem)));
   border-image-slice: 1;
   transition: border-image-source 600ms ease-in-out;
 }
 
-button:hover::before {
-  border-image-source: radial-gradient(circle at bottom right, white, transparent calc(min(20%, 6rem)));
-}
 button:hover {
-  color: white;
-  border-image-source: radial-gradient(circle at top left, magenta, transparent calc(max(100%, 6rem)));
+  border-image-source: radial-gradient(circle at top left, var(--p1-clr), transparent calc(max(100%, 6rem)));
+}
+button:hover::before {
+  border-image-source: radial-gradient(circle at bottom right, var(--p2-clr), transparent calc(min(20%, 6rem)));
 }
 
-
-button:focus-visible{
-  outline: white dashed 2px;
+button:focus-visible {
+  outline: var(--p2-clr) dashed 2px;
   outline-offset: 2px;
-  background-color: rgba(255, 255, 255, 0.10);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 button:active {
   outline: none;
-  background-color: rgba(255, 255, 255, 0.10);
+  background-color: rgba(255, 255, 255, 0.1);
 }

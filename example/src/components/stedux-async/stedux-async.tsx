@@ -1,4 +1,5 @@
-import { Component, Host, h, Fragment } from '@stencil/core';
+// File: example/src/components/stedux-async/stedux-async.tsx
+import { Component, Host, h } from '@stencil/core';
 import { Thunk, ThunkDispatch } from 'stedux';
 import { createDispatch, createSelector, MyAction, MyState } from '../../store/person-store';
 
@@ -45,16 +46,22 @@ export class SteduxAsync {
     const { data, loading, error } = this.personData();
     const id = randInt(1, 11);
 
-    const name = loading === null ? '' : loading ? '...' : data.name;
-    const height = loading === null ? '' : loading ? '...' : data.height;
+    const name = loading === null ? '-' : loading ? '...' : data.name;
+    const height = loading === null ? '-' : loading ? '...' : data.height;
 
     return (
       <Host>
         <ui-btn onClick={() => this.dispatch(fetchPerson(id))}>Fetch data</ui-btn>
-        <Fragment>
-          <div>name: {name}</div>
-          <div>height: {height}</div>
-        </Fragment>
+        <div class="data">
+          <div class="row">
+            <span class="label">name:</span>
+            <span class="value">{name}</span>
+          </div>
+          <div class="row">
+            <span class="label">height:</span>
+            <span class="value">{height}</span>
+          </div>
+        </div>
         {error && <div>Oops: {error.message}</div>}
       </Host>
     );

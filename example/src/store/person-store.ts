@@ -1,3 +1,4 @@
+// File: /src/store/async-store.ts
 import { forceUpdate, getElement, getRenderingRef } from '@stencil/core';
 import { createStore } from 'stedux';
 

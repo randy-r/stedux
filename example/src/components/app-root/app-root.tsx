@@ -10,7 +10,9 @@ export class AppRoot {
     return (
       <div class="root">
         <header>
-          <h1>Stedux</h1>
+          <h1>
+            Ste<span class="highlight">dux</span>
+          </h1>
         </header>
 
         <main>

@@ -1,10 +1,32 @@
 :host {
   padding: 5px;
   flex: 1;
-  border: 3px dashed gold;
+  --btn-fs: 3rem;
 }
 
 ui-btn {
-  /* color:aqua; */
-  font-size: 1rem;
+  font-size: var(--btn-fs);
+  display: flex;
+  justify-content: center;
+}
+
+.data {
+  display: block;
+  font-size: 3rem;
+  margin-top: var(--btn-fs);
+}
+
+.row {
+  display: flex;
+}
+
+.label {
+  text-align: end;
+  padding-right: 0.5em;
+  min-width: 50%;
+}
+
+.value {
+  color: var(--p1-clr);
+  text-shadow: var(--glow-text-shadow);
 }
