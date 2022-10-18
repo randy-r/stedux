@@ -8,6 +8,13 @@ Stedux is a state management library for [Stencil](https://stenciljs.com/) compo
 
 ## Examples
 
+Source code for examples can be found in the [example](./example/) folder.
+The deployed live version can be found at https://randy-r.github.io/stedux.
+
+- [Counter](#counter)
+- [Data fetching / async thunks](#data-fetching--async-thunks)
+
+
 ### Counter
 
 ```tsx
@@ -238,5 +245,3 @@ const { createDispatch, createSelector, createProvider } = createStore<
 
 export { createDispatch, createSelector, createProvider };
 ```
-
-See the full source code for the Stencil app with examples [here](./example/).

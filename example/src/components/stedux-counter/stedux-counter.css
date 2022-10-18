@@ -1,6 +1,7 @@
 :host {
   padding: 5px;
   flex: 1;
+  font-size: 3rem;
 }
 
 div {
@@ -8,7 +9,7 @@ div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   max-width: 70%;
   margin: 0 auto;
 }
@@ -16,20 +17,19 @@ div {
 ui-jumbo {
   text-align: center;
   margin-top: 1.5rem;
-  margin-bottom: 1.5em;
-}
-
-ui-btn {
-  font-size: 3rem;
+  margin-bottom: 1.5rem;
 }
 
 ui-btn button {
   min-width: 2em;
+  aspect-ratio: 1/1;
 }
 
-@media screen and (min-width: 36em)  {
+@media screen and (min-width: 36em) {
   div {
     flex-direction: row;
   }
+  ui-jumbo {
+    font-size: 3.5rem;
+  }
 }
-

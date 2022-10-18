@@ -1,7 +1,9 @@
 :host {
   padding: 5px;
   flex: 1;
-  font-size: 2rem;;
+  --fs: 2rem;
+  font-size: var(--fs);
+  min-height: calc(10 * var(--fs));
 }
 
 ui-btn {
@@ -32,6 +34,12 @@ ui-btn {
 @media screen and (min-width: 36em)  {
   :host {
     font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: 60em)  {
+  :host {
+    min-height: auto;
   }
 }
 

@@ -1,7 +1,7 @@
+
 span {
   display: inline-block;
-  font-size: 12rem;
-  line-height: 11rem;
+  /* line-height: 1.05em; */
   /* height: 14.5rem; */
   /* margin-bottom: -0.5rem; */
   min-width: 3ch;
@@ -9,7 +9,9 @@ span {
   color: rgba(var(--color_red), var(--color_green), var(--color_blue), 1);
   text-shadow: var(--glow-text-shadow);
   /* animation: floating 3s ease-in-out infinite; */
+  font-size: 4em;
 }
+
 
 /* @keyframes floating {
   0% {

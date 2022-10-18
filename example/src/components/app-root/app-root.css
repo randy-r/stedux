@@ -43,11 +43,19 @@ nav h1 {
   text-shadow: var(--glow-text-shadow);
   margin-right: auto;
   font-size: 1.5rem;
-  padding: 0 0.4em 0 0;
-
+  margin: 0 0.4em 0 0;
+  transition: color 200ms ease-in-out;
 }
 nav h1 .highlight {
   color: var(--p1-clr);
+  transition: color 200ms ease-in-out;
+}
+
+nav h1:hover {
+  color: var(--p1-clr);
+}
+nav h1:hover .highlight {
+  color: var(--p2-clr);
 }
 
 .app-links {
@@ -62,20 +70,34 @@ nav h1 .highlight {
   color: var(--p1-clr);
   font-size: 1.2rem;
   margin-left: auto;
-
 }
+
+.external-links svg {
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+}
+
+.external-links a .fill-out {
+  fill: var(--p2-clr);
+  transition: fill 200ms ease-in-out;
+}
+
+.external-links a:hover .fill-out {
+  fill: var(--p1-clr);
+}
+
 .app-links a {
   margin-top: 1em;
 }
 
 .external-links a:last-child {
-  padding-right: 0;
+  margin-right: 0;
 }
-
 
 a {
   display: inline-block;
-  padding: 0 0.4em;
+  margin: 0 0.4em;
   color: var(--p2-clr);
   transition: color 200ms ease-in-out;
   text-decoration: none;
@@ -94,8 +116,6 @@ a:hover {
 main {
   flex: 1;
   display: flex;
-  margin: 30px;
-  padding: 30px;
   align-items: center;
   justify-content: center;
 }
@@ -105,9 +125,8 @@ main {
   flex: 1;
 }
 
-
-@media screen and (min-width: 36em)  {
-  .app-links { 
+@media screen and (min-width: 36em) {
+  .app-links {
     order: unset;
     flex-basis: auto;
   }
@@ -116,3 +135,8 @@ main {
   }
 }
 
+.version {
+  font-size: 0.9rem;
+  color: (--p2-clr);
+  opacity: 0.5;
+}
