@@ -40,9 +40,8 @@ button {
   border: 3px solid;
   box-sizing: border-box;
   border-block-start: 3px solid;
-  border-image-source: radial-gradient(circle at top left, var(--p1-clr), transparent calc(max(40%, 6rem)));
+  border-image-source: radial-gradient(circle at top left, var(--p1-clr), transparent calc(max(40%, 1em)));
   border-image-slice: 1;
-  min-width: 10.5rem;
   transition: background-color 100ms ease-in-out, color 300ms ease-in-out, border-image-source 600ms ease-in-out;
 }
 button::before {
@@ -58,21 +57,21 @@ button::before {
   bottom: -3px;
   border: 3px solid;
   border-block-start: 3px solid;
-  border-image-source: radial-gradient(circle at bottom right, var(--p2-clr), transparent calc(max(40%, 6rem)));
+  border-image-source: radial-gradient(circle at bottom right, var(--p2-clr), transparent calc(max(40%, 1em)));
   border-image-slice: 1;
   transition: border-image-source 600ms ease-in-out;
 }
 
 button:hover {
-  border-image-source: radial-gradient(circle at top left, var(--p1-clr), transparent calc(max(100%, 6rem)));
+  border-image-source: radial-gradient(circle at top left, var(--p1-clr), transparent calc(max(100%, 1em)));
 }
 button:hover::before {
-  border-image-source: radial-gradient(circle at bottom right, var(--p2-clr), transparent calc(min(20%, 6rem)));
+  border-image-source: radial-gradient(circle at bottom right, var(--p2-clr), transparent calc(min(20%, 1em)));
 }
 
 button:focus-visible {
-  outline: var(--p2-clr) dashed 2px;
-  outline-offset: 2px;
+  /* outline: var(--p2-clr) dashed 2px; */
+  /* outline-offset: 2px; */
   background-color: rgba(255, 255, 255, 0.1);
 }
 
