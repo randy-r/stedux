@@ -1,4 +1,7 @@
 import { Component, h } from '@stencil/core';
+import { createRouter, Route, href } from 'stencil-router-v2';
+
+const Router = createRouter();
 
 @Component({
   tag: 'app-root',
@@ -7,6 +10,7 @@ import { Component, h } from '@stencil/core';
 })
 export class AppRoot {
   render() {
+    const activePath = Router.activePath;
     return (
       <div class="root">
         <nav>
@@ -14,12 +18,12 @@ export class AppRoot {
             Ste<span class="highlight">dux</span>
           </h1>
           <span class="app-links desktop">
-            <stencil-route-link activeClass="active" url="/counter">
+            <a {...href('/counter', Router)} class={{ active: activePath === '/counter' }}>
               Counter
-            </stencil-route-link>
-            <stencil-route-link activeClass="active" url="/async">
+            </a>
+            <a {...href('/async', Router)} class={{ active: activePath === '/async' }}>
               Async
-            </stencil-route-link>
+            </a>
           </span>
           <span class="external-links">
             <a href="https://github.com/randy-r/stedux" target="_blank">
@@ -32,13 +36,15 @@ export class AppRoot {
         </nav>
 
         <main>
-          <stencil-router class="flex">
-            <stencil-route-switch class="flex" scrollTopOffset={0}>
-              <stencil-route class="flex" url="/" component="stedux-counter" exact={true} />
-              <stencil-route class="flex" url="/counter" component="stedux-counter" exact={true} />
-              <stencil-route class="flex" url="/async" component="stedux-async" exact={true} />
-            </stencil-route-switch>
-          </stencil-router>
+          <Router.Switch>
+            <Route path="/" to="/counter" />
+            <Route path="/counter">
+              <stedux-counter />
+            </Route>
+            <Route path="/async">
+              <stedux-async />
+            </Route>
+          </Router.Switch>
         </main>
       </div>
     );

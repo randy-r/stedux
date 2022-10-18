@@ -120,7 +120,7 @@ const fetchPerson =
     if (!response.ok) {
       dispatch({
         type: 'person-error',
-        payload: { error: { message: `Failed to fetch: ${response.status}.` } },
+        payload: { error: { message: `${response.status}` } },
       });
       return;
     }
@@ -154,7 +154,7 @@ export class SteduxAsync {
           </Fragment>
         )}
         {error && <div>Oops: {error.message}</div>}
-        <button onClick={() => this.dispatch(fetchPerson(id))}>
+        <button onClick={() => this.dispatch(fetchPerson(1))}>
           Fetch data
         </button>
       </Host>

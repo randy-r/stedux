@@ -12,12 +12,12 @@
     "serve": "serve -s ./www"
   },
   "devDependencies": {
-    "@stencil-community/router": "^1.0.2",
-    "@stencil/core": "2.13.0",
+    "@stencil/core": "2.18.1",
     "@types/jest": "^27.0.3",
     "jest": "^27.4.5",
     "jest-cli": "^27.4.5",
-    "puppeteer": "^10.0.0"
+    "puppeteer": "^10.0.0",
+    "stencil-router-v2": "^0.6.0"
   },
   "license": "MIT"
 }
