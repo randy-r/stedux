@@ -90,14 +90,16 @@ class RenderQ {
       this.set.clear();
     }
   }
-  signalToRender() {
+  async signalToRender() {
+    let p: Promise<any> | string = '__stedux_plain__';
     const values = this.values();
     if (this.method === 'plain') {
       this.signalToRenderPlain(values);
     } else {
-      this.signalToRenderAsync(values);
+      p = this.signalToRenderAsync(values);
     }
     this.clear();
+    return p;
   }
   private signalToRenderPlain(values) {
     for (const qi of values) {
@@ -106,26 +108,34 @@ class RenderQ {
   }
   private signalToRenderAsync(values) {
     const vs = [...values];
-    new Promise(() => {
+    return new Promise((resolve) => {
       this.signalToRenderPlain(vs);
+      resolve('__stedux_async__');
     });
   }
 }
 
-function createStore<S, A extends BaseAction<any>>(
+function createStoreBase<S, A extends BaseAction<any>>(
   initialState: S,
   rootReducer: Reducer<S, A>,
   config: StashConfig
 ) {
   const { forceUpdate, getElement, getRenderingRef } = config;
 
+  // @ts-ignore
+  let stash = rootReducer(initialState, { type: '__STASH_INIT__' });
   let subs: SEV<S, any, any>[] = [];
-  let stash = { ...initialState };
   const reducer = rootReducer;
 
   const getState = () => stash;
 
   const renderQ = new RenderQ('set', 'async', forceUpdate);
+
+  let rc = 0;
+  let renderPromiseResolve: (value: string | PromiseLike<string>) => void;
+  let renderPromise: Promise<string> | null = new Promise<string>((resolve) => {
+    renderPromiseResolve = resolve;
+  });
 
   const handleAction = (action: A) => {
     const crtStash = stash;
@@ -139,16 +149,16 @@ function createStore<S, A extends BaseAction<any>>(
       }
     }
     stash = newStash;
-    renderQ.signalToRender();
+    const newPromise = renderQ.signalToRender(); // fire and forget
+    newPromise.then(() => {
+      renderPromiseResolve(`__render_done_${++rc}__`);
+      renderPromise = new Promise<string>((resolve) => {
+        renderPromiseResolve = resolve;
+      });
+    });
   };
 
-  function createProvider(_component: any) {
-    // @ts-ignore
-    const stash = rootReducer(initialState, { type: '__STASH_INIT__' });
-  }
-
   function createDispatch(component: any): ThunkDispatch<A, S> {
-    // const el = getElement(component);
     if (!component['onCleanups']) {
       const onCleaups: OnCleanup[] = [];
       component['onCleanups'] = onCleaups;
@@ -170,25 +180,33 @@ function createStore<S, A extends BaseAction<any>>(
       };
       if (action[Symbol.toStringTag] === 'AsyncFunction') {
         // it is an async thunk
-        (action as Thunk<S, A, any>)(dispatch, getState, context).then(
-          (r: any) => {
-            component['onCleanups'] = component['onCleanups'].filter(
-              (oc: OnCleanup) => oc !== thunkOnCleanup
-            );
-            return r;
-          }
-        );
+        const thunkPromise = (action as Thunk<S, A, any>)(
+          dispatch,
+          getState,
+          context
+        ).then((r: any) => {
+          component['onCleanups'] = component['onCleanups'].filter(
+            (oc: OnCleanup) => oc !== thunkOnCleanup
+          );
+          return r;
+        });
+        return thunkPromise;
       } else if (
         Object.prototype.toString.call(action) === '[object Function]'
       ) {
         // it is a thunk
-        (action as Thunk<S, A, any>)(dispatch, getState, context);
+        const thunkResult = (action as Thunk<S, A, any>)(
+          dispatch,
+          getState,
+          context
+        );
         component['onCleanups'] = component['onCleanups'].filter(
           (oc: OnCleanup) => oc !== thunkOnCleanup
         );
+        return thunkResult;
       } else {
         // @ts-ignore
-        dispatch(action);
+        return dispatch(action);
       }
     };
 
@@ -219,7 +237,6 @@ function createStore<S, A extends BaseAction<any>>(
     const componentName = component.constructor.name;
 
     if (!component['ownsubs']) {
-      // component['ownsubs'] = new Set<SEV<S, any, any>>();
       component['ownsubs'] = new Set<string>();
     }
 
@@ -278,7 +295,9 @@ function createStore<S, A extends BaseAction<any>>(
     return selectorFunc;
   }
 
-  return { createDispatch, createSelector, createProvider };
+  const getRenderPromise = () => renderPromise;
+
+  return { createDispatch, createSelector, getState, getRenderPromise };
 }
 
-export { createStore };
+export { createStoreBase };

@@ -68,7 +68,7 @@ export class AppRoot {
             </Route>
           </Router.Switch>
         </main>
-        <div class="version">1.0.8</div>
+        <div class="version">1.1.0</div>
       </div>
     );
   }
