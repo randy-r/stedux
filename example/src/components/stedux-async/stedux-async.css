@@ -28,7 +28,7 @@ ui-btn {
 
 .value {
   color: var(--p1-clr);
-  text-shadow: var(--glow-text-shadow);
+  text-shadow: var(--p1-clr--text-shadow);
 }
 
 @media screen and (min-width: 36em)  {
