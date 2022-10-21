@@ -6,6 +6,7 @@ type Button = JSXBase.IntrinsicElements['button'];
 @Component({
   tag: 'ui-btn',
   styleUrl: 'ui-btn.css',
+  scoped: true,
 })
 export class UiBtn {
   render() {

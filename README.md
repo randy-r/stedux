@@ -14,7 +14,6 @@ The deployed live version can be found at https://randy-r.github.io/stedux.
 - [Counter](#counter)
 - [Data fetching / async thunks](#data-fetching--async-thunks)
 
-
 ### Counter
 
 ```tsx
@@ -54,7 +53,6 @@ export class SteduxCounter {
 
 ```tsx
 // File: /src/store/counter-store.ts
-import { forceUpdate, getElement, getRenderingRef } from '@stencil/core';
 import { createStore } from 'stedux';
 
 export type MyState = {
@@ -95,12 +93,7 @@ export const myInitialState: MyState = {
 
 const { createDispatch, createSelector } = createStore<MyState, MyAction>(
   myInitialState,
-  myRootReducer,
-  {
-    forceUpdate,
-    getElement,
-    getRenderingRef,
-  }
+  myRootReducer
 );
 
 export { createDispatch, createSelector };
@@ -172,7 +165,6 @@ export class SteduxAsync {
 
 ```ts
 // File: /src/store/async-store.ts
-import { forceUpdate, getElement, getRenderingRef } from '@stencil/core';
 import { createStore } from 'stedux';
 
 export type MyState = {
@@ -217,9 +209,8 @@ const personReducer = (
   switch (action.type) {
     case 'person-loading':
       return { data: null, error: null, loading: true };
-    case 'person-error': {
+    case 'person-error':
       return { data: null, error: action.payload.error, loading: false };
-    }
     case 'person-done':
       return { data: action.payload, error: null, loading: false };
     default:
@@ -234,14 +225,10 @@ export const myRootReducer = (state: MyState, action: MyAction): MyState => {
   };
 };
 
-const { createDispatch, createSelector, createProvider } = createStore<
-  MyState,
-  MyAction
->(myInitialState, myRootReducer, {
-  forceUpdate,
-  getElement,
-  getRenderingRef,
-});
+const { createDispatch, createSelector } = createStore<MyState, MyAction>(
+  myInitialState,
+  myRootReducer
+);
 
-export { createDispatch, createSelector, createProvider };
+export { createDispatch, createSelector };
 ```
